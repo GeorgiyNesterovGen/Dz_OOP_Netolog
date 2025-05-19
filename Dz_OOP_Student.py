@@ -7,11 +7,13 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
         
+        
     def add_finished_courses(self, course_name):
         self.finished_courses.append(course_name)
     
+    
     def rate_lc(self, lecturer, course, grade):
-    # Возможность оценивать лекторов
+        # Возможность оценивать лекторов
         if isinstance(lecturer, Lecturer) and course in lecturer.courses_attached and course in self.courses_in_progress:
             if 0 < grade <= 10:
                 if course in lecturer.lecturer_grades:
@@ -24,6 +26,7 @@ class Student:
         else:
             return 'Ошибка лектор не проводит данный курс'
         
+        
     def average_hw(self):
         all_grades_hw = []
         for grade in self.grades.values():
@@ -35,23 +38,30 @@ class Student:
             average = 0.0
             return average
         
+        
     def __lt__(self, student):
         return self.average_hw() < student.average_hw()
+    
     
     def __gt__(self, student):
         return self.average_hw() > student.average_hw()
     
+    
     def __le__(self, student):
         return self.average_hw() <= student.average_hw()
+    
     
     def __ge__(self, student):
         return self.average_hw() >= student.average_hw()
     
+    
     def __eq__(self, student):
         return self.average_hw() == student.average_hw()
     
+    
     def __ne__(self, student):
         return self.average_hw() != student.average_hw()
+        
         
     def __str__(self):
         return (f"Имя: {self.name}\n"
@@ -61,16 +71,19 @@ class Student:
                 f"Завершенные курсы: {self.finished_courses}"
         )
         
+        
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
         self.surname = surname
         self.courses_attached = []
         
+        
 class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name,surname)
         self.lecturer_grades = {}
+    
     
     def average_grade(self):
         all_grades = []
@@ -83,28 +96,37 @@ class Lecturer(Mentor):
             average = 0.0
             return average
         
+        
     def __lt__(self, lecturer):
         return self.average_grade() < lecturer.average_grade()
+    
     
     def __gt__(self, lecturer):
         return self.average_grade() > lecturer.average_grade()
     
+    
     def __le__(self, lecturer):
         return self.average_grade() <= lecturer.average_grade()
+    
     
     def __ge__(self, lecturer):
         return self.average_grade() >= lecturer.average_grade()
     
+    
     def __eq__(self, lecturer):
         return self.average_grade() == lecturer.average_grade()
+    
     
     def __ne__(self, lecturer):
         return self.average_grade() != lecturer.average_grade()
         
+        
     def __str__(self):
         return f"Имя: {self.name}\nФамилия {self.surname}\nСредняя оценка за лекции: {self.average_grade():.2f}"
      
+     
 class Reviewer(Mentor):
+    
     
     def rate_hw(self, student, course, grade):
     #Возможность выставлять оценки)
@@ -116,6 +138,7 @@ class Reviewer(Mentor):
             return "Оценка добавлена"
         else:
             return 'Ошибка студент не изучает этот курс'
+    
     
     def __str__(self):
         return f"Имя: {self.name}\nФамилия: {self.surname}"
@@ -132,6 +155,7 @@ def average_hw_course(students, course):
         return sum(all_grades) / len(all_grades)
     else:
         return 0.0
+    
     
 def average_grade_lc_course(lecturers, course):
     all_grades = []
